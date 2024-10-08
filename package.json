@@ -13,7 +13,5 @@
     "axios": "^1.7.7",
     "moment-timezone": "^0.5.46",
     "telegram": "^2.25.15"
-    "tdl": "^8.0.1",
-    "telegram-mtproto": "^2.2.8"
   }
 }
