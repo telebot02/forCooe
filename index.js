@@ -2,6 +2,8 @@ const { TelegramClient } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const axios = require("axios");
 const moment = require("moment-timezone");
+const http = require("http");
+const https = require("https");
 
 const apiId = 28596369;
 const apiHash = "f50cfe3b10da015b2c2aa0ad31414a55";
@@ -9,7 +11,6 @@ const sessionKey = "1BQANOTEuMTA4LjU2LjE2MgG7xdDOm6fZrHa3TZlzYirstKm6txAmMgpKEa6
 
 const apiUrl = "https://cooe.top/user/redeem_gift_code";
 const apiToken = 'Token b1211337241167aeae1efc9b796e47f5c7d5aaee'; 
-
 
 const session = new StringSession(sessionKey); 
 const client = new TelegramClient(session, apiId, apiHash, {});
@@ -46,6 +47,8 @@ const getTimeUntilNextStart = () => {
     
     return start.diff(now); // Returns the difference in milliseconds
 };
+
+
 
 const startBot = async () => {
     await client.connect();
@@ -100,7 +103,35 @@ const startBot = async () => {
     }
 };
 
+const createHealthCheckServer = () => {
+  http.createServer((req, res) => {
+    if (req.url === "/health") {
+      res.writeHead(200, { "Content-Type": "text/plain" });
+      res.end("OK");
+    } else {
+      res.writeHead(404, { "Content-Type": "text/plain" });
+      res.end("Not Found");
+    }
+  }).listen(8080, () => {
+    console.log("Health check server is running on port 8080");
+  });
+};
+
+// Self-ping to prevent app from sleeping
+const keepAppAwake = () => {
+  setInterval(() => {
+    https.get("health", (res) => { // Changed from http to https
+      console.log("Self-ping: ", res.statusCode);
+    }).on("error", (err) => {
+      console.error("Error in self-ping: ", err.message);
+    });
+  }, 20 * 60 * 1000); // Ping every 20 minutes
+};
+
+
 const init = async () => {
+    createHealthCheckServer();
+    keepAppAwake();
     await startBot();
 };
 
