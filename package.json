@@ -1,0 +1,17 @@
+{
+  "name": "trying",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "moment-timezone": "^0.5.46",
+    "telegram": "^2.25.15"
+  }
+}
