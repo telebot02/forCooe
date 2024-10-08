@@ -120,7 +120,7 @@ const createHealthCheckServer = () => {
 // Self-ping to prevent app from sleeping
 const keepAppAwake = () => {
   setInterval(() => {
-    https.get("health", (res) => { // Changed from http to https
+    https.get("https://forcoe-iebhylgu.b4a.run/health", (res) => { // Changed from http to https
       console.log("Self-ping: ", res.statusCode);
     }).on("error", (err) => {
       console.error("Error in self-ping: ", err.message);
