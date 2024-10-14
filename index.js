@@ -32,7 +32,7 @@ const extractRedeemCode = (text) => {
 const isWithinWorkingHours = () => {
     const now = moment().tz("Asia/Kolkata"); // Get current time in IST
     const start = moment().tz("Asia/Kolkata").set({ hour: 19, minute: 30 }); // 7:30 PM
-    const end = moment().tz("Asia/Kolkata").set({ hour: 22, minute: 0 }); // 10:00 PM
+    const end = moment().tz("Asia/Kolkata").set({ hour: 23, minute: 55 }); // 10:00 PM
 
     return now.isBetween(start, end, null, '[]'); // Check if current time is between start and end time
 };
