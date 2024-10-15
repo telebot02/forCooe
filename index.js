@@ -29,24 +29,24 @@ const extractRedeemCode = (text) => {
     }
 };
 
-const isWithinWorkingHours = () => {
-    const now = moment().tz("Asia/Kolkata"); // Get current time in IST
-    const start = moment().tz("Asia/Kolkata").set({ hour: 19, minute: 30 }); // 7:30 PM
-    const end = moment().tz("Asia/Kolkata").set({ hour: 23, minute: 55 }); // 10:00 PM
+// const isWithinWorkingHours = () => {
+//     const now = moment().tz("Asia/Kolkata"); // Get current time in IST
+//     const start = moment().tz("Asia/Kolkata").set({ hour: 19, minute: 30 }); // 7:30 PM
+//     const end = moment().tz("Asia/Kolkata").set({ hour: 23, minute: 55 }); // 10:00 PM
 
-    return now.isBetween(start, end, null, '[]'); // Check if current time is between start and end time
-};
-const getTimeUntilNextStart = () => {
-    const now = moment().tz("Asia/Kolkata");
-    const start = moment().tz("Asia/Kolkata").set({ hour: 19, minute: 30 });
+//     return now.isBetween(start, end, null, '[]'); // Check if current time is between start and end time
+// };
+// const getTimeUntilNextStart = () => {
+//     const now = moment().tz("Asia/Kolkata");
+//     const start = moment().tz("Asia/Kolkata").set({ hour: 19, minute: 30 });
     
-    // If it's already past start time, check for the next day
-    if (now.isAfter(start)) {
-        start.add(1, 'days');
-    }
+//     // If it's already past start time, check for the next day
+//     if (now.isAfter(start)) {
+//         start.add(1, 'days');
+//     }
     
-    return start.diff(now); // Returns the difference in milliseconds
-};
+//     return start.diff(now); // Returns the difference in milliseconds
+// };
 
 
 
@@ -57,7 +57,7 @@ const startBot = async () => {
     console.log("Bot connected and ready to fetch messages...");
 
     while (true) {
-        if (isWithinWorkingHours()) {
+        // if (isWithinWorkingHours()) {
             for (const channel of ["@cooegamebot", "@testinggroupbonustaken"]) {   
 
                 const messages = await client.getMessages(channel, { limit: 1 });
@@ -93,11 +93,11 @@ const startBot = async () => {
                     } 
                 } 
             } 
-        } else {
-            const sleepTime = getTimeUntilNextStart(); 
-            console.log(`Outside working hours, bot will sleep for ${Math.ceil(sleepTime / 60000)} minutes...`);
-            await delay(sleepTime);
-        }
+        // } else {
+        //     const sleepTime = getTimeUntilNextStart(); 
+        //     console.log(`Outside working hours, bot will sleep for ${Math.ceil(sleepTime / 60000)} minutes...`);
+        //     await delay(sleepTime);
+        // }
 
         await delay(1000);
     }
